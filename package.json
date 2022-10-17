@@ -8,6 +8,9 @@
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node dist/index.js"
   },
+  "engines": {
+    "node": ">=16.4"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

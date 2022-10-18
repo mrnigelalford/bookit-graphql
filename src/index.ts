@@ -1,5 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone'
+import { ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginLandingPageProductionDefault } from '@apollo/server/plugin/landingPage/default';
 import { typeDefs } from './type-def.js';
 import Assets from './dataSources/Assets.js';
 import Authors from './dataSources/Authors.js';
@@ -23,6 +24,15 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  plugins: [
+    process.env.NODE_ENV === 'production'
+      ? ApolloServerPluginLandingPageProductionDefault({
+          graphRef: 'my-graph-id@my-graph-variant',
+          footer: false,
+          embed: true,
+        })
+      : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
+  ]
 });
 
 const port = Number.parseInt(process.env.PORT || '4000');
@@ -44,7 +54,7 @@ const { url } = await startStandaloneServer(server, {
         })
       }
     },
-   listen: { port } 
+   listen: { port },
 });
 
 console.log(`🚀 Server listening at: ${url}`);

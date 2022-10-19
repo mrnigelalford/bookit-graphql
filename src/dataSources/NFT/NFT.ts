@@ -15,13 +15,11 @@ export const createStorage = contractStorage
   .with(nftStorage).build;
 
 export const setPinata = async () => {
-  const url = `https://api.pinata.cloud/data/testAuthentication`;
   return axios
-    .get(url, {
+    .get(process.env.pinata_url, {
       headers: {
-        pinata_api_key: '845fb67b8da495cc90e7',
-        pinata_secret_api_key:
-          'b0d62e6c7c0d37bc777809021faef9926cf1af532394f1ee1b78ccdf64531657',
+        pinata_api_key: process.env.pinata_api_key,
+        pinata_secret_api_key: process.env.pinata_secret_key,
       },
     })
     .then(function (response) {

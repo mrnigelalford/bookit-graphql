@@ -3,15 +3,11 @@ import { MongoClient } from 'mongodb';
 import { NFT } from '../Types/NFT.type';
 
 export default class Asset extends MongoDataSource<NFT> {
-  client = new MongoClient(process.env.mongoURL);
+  client = new MongoClient(process.env.mongodb);
 
   getAssetByID(id: string) {
     return this.findOneById(id);
   }
-
-  // getAllAssets() {
-  //   return this.findManyByIds ();
-  // }
 
   setAsset = async (props: NFT) => {
     const session = await this.client.connect();

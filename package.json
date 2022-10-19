@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@apollo/server": "^4.0.0",
+    "@apollo/server": "^4.0.1",
     "@oxheadalpha/fa2-interfaces": "^7.1.0",
     "@taquito/taquito": "^14.0.0",
     "@taquito/tezbridge-signer": "^14.0.0",

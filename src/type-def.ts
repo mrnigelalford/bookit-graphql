@@ -31,8 +31,6 @@ type Asset {
 
 type Query {
   asset(id: ID): Asset
-  assets: [Asset]
   author(id: ID): Author
-  authors: [Author]
 }
 `;

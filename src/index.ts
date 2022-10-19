@@ -4,6 +4,7 @@ import { typeDefs } from './type-def.js';
 import Assets from './dataSources/Assets.js';
 import Authors from './dataSources/Authors.js';
 import { MongoClient } from 'mongodb';
+import { ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginLandingPageProductionDefault } from '@apollo/server/plugin/landingPage/default';
 
 import * as dotenv from 'dotenv'
 dotenv.config()
@@ -23,7 +24,16 @@ const resolvers = {
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  plugins: [
+    process.env.NODE_ENV === 'production'
+      ? ApolloServerPluginLandingPageProductionDefault({
+          graphRef: 'my-graph-id@my-graph-variant',
+          footer: false,
+          embed: true,
+        })
+      : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
+  ]
 });
 
 const { url } = await startStandaloneServer(server, {

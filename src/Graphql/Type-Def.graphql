@@ -148,7 +148,7 @@ enum Category {
 type Query {
   asset(id: ID): Asset
   assets: [Asset]
-  author(id: ID): Author
+  author(address: String): Author
   authors: [Author]
   auctions: [Auction]
   auction(id: ID): Auction
@@ -167,10 +167,11 @@ type Mutation {
     previewImg: String
   ): AssetSetResponse
   setAuthor(
-    bioLink: String
-    img: String
-    name: String
-    sales: Int
+    bioLink?: String
+    img?: String
+    name?: String
+    sales?: Int
+    address: String
   ): AuthorSetResponse
   setAuction(
     nftID: String!

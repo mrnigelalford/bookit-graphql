@@ -9,6 +9,7 @@ interface Author {
   bioLink: string;
   img: string;
   name: string;
+  address: string;
 }
 
 export interface NFT {

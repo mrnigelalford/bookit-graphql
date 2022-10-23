@@ -3,23 +3,20 @@ import { Author } from '../Types/Author.type';
 
 export default class Authors extends MongoDataSource<Author> {
 
-  getAuthorByID (id: string) {
-    return this.collection.findOne({"name": "Nigel Alford"})
+  getAuthorByAddress(address: string) {
+    return this.collection.findOne({ address })
   }
 
-  // NOTE: This is not being used yet
-  setAuthor (props: Author) {
-    this.collection
-      .insertOne({
-        name: props.name,
-        bioLink: props.bioLink,
-        sales: props.sales,
-        img: props.img,
-      })
-      .then((res) => {
-        console.log('insert successful: ', res);
-      });
-
-    return 'success';
+  async setAuthorByAddress({ address }: Author) {
+    try {
+      const res = await this.collection
+        .insertOne({
+          address
+        });
+      console.log('res: ', res);
+      return res;
+    } catch (e) {
+      return e;
+    }
   };
 }

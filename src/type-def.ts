@@ -9,8 +9,13 @@ type Author {
   _id: ID!
   bioLink: String
   img: String
-  name: String!
-  sales: Int!
+  name: String
+  address: String
+}
+
+type AuthorSetResponse {
+  acknowledged: Boolean!
+  insertedId: ID
 }
 
 type Asset {
@@ -31,6 +36,12 @@ type Asset {
 
 type Query {
   asset(id: ID): Asset
-  author(id: ID): Author
+  author(address: String): Author
+}
+
+type Mutation {
+  setAuthorByAddress(
+    address: String!
+  ): AuthorSetResponse
 }
 `;

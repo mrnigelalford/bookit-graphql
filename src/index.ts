@@ -7,6 +7,7 @@ import { MongoClient } from 'mongodb';
 import { ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginLandingPageProductionDefault } from '@apollo/server/plugin/landingPage/default';
 
 import * as dotenv from 'dotenv'
+import { Author } from './Types/Author.type.js';
 dotenv.config()
 
 const port = Number.parseInt(process.env.PORT);
@@ -18,7 +19,11 @@ client.connect();
 const resolvers = {
   Query: {
     asset: (_, { id }, { dataSources }) => dataSources.assets.getAssetByID(id),
-    author: (_, { id }, { dataSources }) => dataSources.authors.getAuthorByID(id),
+    author: (_, { address }, { dataSources }) => dataSources.authors.getAuthorByAddress(address),
+  },
+  Mutation: {
+    setAuthorByAddress: (_, props: Author, { dataSources }) =>
+    dataSources.authors.setAuthorByAddress(props)
   }
 }
 
